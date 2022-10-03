@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-
+import 'package:math_expressions/math_expressions.dart';
 
 void main(List<String> args) {
   runApp(
@@ -18,66 +17,78 @@ class Calculators extends StatefulWidget {
 }
 
 class _CalculatorsState extends State<Calculators> {
-  List calcul = [];
-  bool 
-  double javob=0;
+  List<String> calcul = [];
+  bool isEqualed = false;
+  double javob = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
+        backgroundColor: Colors.black,
         title: const Center(
           child: Text(
             "Calculators",
-            style: TextStyle(
-              fontSize: 25,
-            ),
+            style: TextStyle(fontSize: 35, color: Colors.white),
           ),
         ),
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: NetworkImage(
-                "https://static3.depositphotos.com/1005155/204/i/450/depositphotos_2043776-stock-photo-arithmetic.jpg"),
-          ),
-        ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Column(
-          
-          
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            //const Padding(padding: EdgeInsets.all(50)),
-            Container(
-              padding: EdgeInsets.all(20),
-              width: 400,
-              height: 80,
-              alignment: const Alignment(1, 0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.grey
-              ),
-              child: Text(
-                calcul.join(),
-                style: TextStyle(fontSize:30),
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Row(
+                ///fsdfsdfs
+                  mainAxisAlignment:MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: isEqualed
+                        ? Text(
+                            javob.toString(),
+                            style: TextStyle(fontSize: 55, color: Colors.white),
+                          )
+                        : Text(
+                             calcul.join(),
+                            style: TextStyle(fontSize: 55, color: Colors.white),
+                          ),
+                ),
+
+                  ],
+
               ),
             ),
+           
             SizedBox(
-              height: 20,
+              height: 25,
             ),
-             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.grey,
+                    ),
                     onPressed: (() {
-                      qoshishFunc("C");
+                      if (calcul.isNotEmpty) {
+                        calcul.clear();
+                      }
+
+                      setState(() {
+                        javob = 0;
+                      });
                     }),
                     child: const Text(
                       "C",
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 30, color: Colors.white),
                     ),
                   ),
                 ),
@@ -85,39 +96,66 @@ class _CalculatorsState extends State<Calculators> {
                   width: 10,
                 ),
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.orange,
+                    ),
                     onPressed: (() {
                       qoshishFunc("*");
                     }),
-                    child: Text("*", style: TextStyle(fontSize: 25) ,),
+                    child: const Text(
+                      "*",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.orange,
+                    ),
                     onPressed: (() {
                       qoshishFunc("/");
                     }),
-                    child: Text("/",style: TextStyle(fontSize: 25),),
+                    child: Text(
+                      "/",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.grey,
+                    ),
                     onPressed: (() {
-                      qoshishFunc("");
+                      if (calcul.isNotEmpty) {
+                        calcul.removeLast();
+                      }
+                      setState(() {});
                     }),
-                    child: Text("<=",style: TextStyle(fontSize: 25),),
+                    child: const Text(
+                      "<=",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
                   ),
                 ),
               ],
@@ -126,18 +164,23 @@ class _CalculatorsState extends State<Calculators> {
               height: 10,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.grey[850],
+                    ),
                     onPressed: (() {
                       qoshishFunc("1");
                     }),
                     child: const Text(
                       "1",
-                      style: TextStyle(fontSize: 25),
+                      style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
                   ),
                 ),
@@ -145,149 +188,325 @@ class _CalculatorsState extends State<Calculators> {
                   width: 10,
                 ),
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.grey[850],
+                    ),
                     onPressed: (() {
                       qoshishFunc("2");
                     }),
-                    child: Text("2",style: TextStyle(fontSize: 25),),
+                    child:const Text(
+                      "2",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.grey[850],
+                    ),
                     onPressed: (() {
                       qoshishFunc("3");
                     }),
-                    child: Text("3",style: TextStyle(fontSize: 25),),
+                    child: const Text(
+                      "3",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.orange,
+                    ),
                     onPressed: (() {
                       qoshishFunc("-");
                     }),
-                    child: Text("-",style: TextStyle(fontSize: 25),),
+                    child:const Text(
+                      "-",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
                   ),
                 ),
               ],
             ),
             SizedBox(height: 10),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.grey[850],
+                    ),
                     onPressed: (() {
                       qoshishFunc("4");
                     }),
-                    child: Text("4",style: TextStyle(fontSize: 25),),
+                    child: Text(
+                      "4",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.grey[850],
+                    ),
                     onPressed: (() {
                       qoshishFunc("5");
                     }),
-                    child: Text("5",style: TextStyle(fontSize: 25),),
+                    child: Text(
+                      "5",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.grey[850],
+                    ),
                     onPressed: (() {
                       qoshishFunc("6");
                     }),
-                    child: Text("6",style: TextStyle(fontSize: 25),),
+                    child: Text(
+                      "6",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        fixedSize: Size(70, 70),
+                        shape: CircleBorder(),
+                        primary: Colors.orange),
                     onPressed: (() {
                       qoshishFunc("+");
                     }),
-                    child: Text("+",style: TextStyle(fontSize: 25),),
+                    child: Text(
+                      "+",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
                   ),
                 ),
               ],
             ),
             SizedBox(height: 10),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.grey[850],
+                    ),
                     onPressed: (() {
                       qoshishFunc("7");
                     }),
-                    child: Text("7",style: TextStyle(fontSize: 25),),
+                    child: Text(
+                      "7",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.grey[850],
+                    ),
                     onPressed: (() {
                       qoshishFunc("8");
                     }),
-                    child: Text("8",style: TextStyle(fontSize: 25),),
+                    child: Text(
+                      "8",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.grey[850],
+                    ),
                     onPressed: (() {
                       qoshishFunc("9");
                     }),
-                    child: Text("9",style: TextStyle(fontSize: 25),),
+                    child: const Text(
+                      "9",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Container(
-                  height: 50,
-                  width: 70,
+                  height: 70,
+                  width: 80,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.orange,
+                    ),
                     onPressed: (() {
-
+                      qoshishFunc("%");
                     }),
-                    child: Text("=",style: TextStyle(fontSize: 25),),
+                    child: Text(
+                      "%",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
+                  ),
+                ),
+                
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 70,
+                  width: 80,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.grey[850],
+                    ),
+                    onPressed: (() {
+                      qoshishFunc("00");
+                    }),
+                    child: Text(
+                      "00",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  height: 70,
+                  width: 80,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.grey[850],
+                    ),
+                    onPressed: (() {
+                      qoshishFunc(".");
+                    }),
+                    child: Text(
+                      ".",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  height: 70,
+                  width: 80,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.grey[850],
+                    ),
+                    onPressed: (() {
+                      qoshishFunc("0");
+                    }),
+                    child: Text(
+                      "0",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  height: 70,
+                  width: 80,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(70, 70),
+                      shape: CircleBorder(),
+                      primary: Colors.orange,
+                    ),
+                    onPressed: (() {
+                      isEqualed = true;
+                      hisobla(calcul);
+                    }),
+                    child: Text(
+                      "=",
+                      style: TextStyle(fontSize: 25, color: Colors.yellow),
+                    ),
                   ),
                 ),
               ],
@@ -303,9 +522,40 @@ class _CalculatorsState extends State<Calculators> {
   }
 
   qoshishFunc(String belgi) {
-    calcul.add(belgi);
+    var last = calcul.isNotEmpty ? calcul.last : "";
+    isEqualed ? isEqualed = false : null;
+    if (belgi == "+" || belgi == "*" || belgi == "/") {
+      if (last != "+" && last != "*" && last != "/" ) {
+        if (calcul.isNotEmpty||belgi=="-"){
+        calcul.add(belgi);
+          
+        }
+        ////fgfgf
+       
+      } else {
+        calcul.removeLast();
+        calcul.add(belgi);
+      }
+    } else {
+      
+      calcul.add(belgi);
+      isEqualed ? isEqualed = false : null;
+    }
+    setState(() {});
+  }
+  //asdadad
+
+  hisobla(List<String> sonlar) {
+    var last = sonlar.last;
+    if (last == "+" || last == "-" || last == "*" || last == "/") {
+      sonlar.removeLast();
+    }
+    String son = sonlar.join();
+    Parser p = Parser();
+    Expression exp = p.parse(son);
+    javob = exp.evaluate(EvaluationType.REAL, ContextModel());
+    debugPrint(javob.toString());
+    calcul.clear();
     setState(() {});
   }
 }
-  
-
