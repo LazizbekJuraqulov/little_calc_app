@@ -42,26 +42,23 @@ class _CalculatorsState extends State<Calculators> {
               scrollDirection: Axis.vertical,
               child: Row(
                 ///fsdfsdfs
-                  mainAxisAlignment:MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: isEqualed
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: isEqualed
                         ? Text(
                             javob.toString(),
                             style: TextStyle(fontSize: 55, color: Colors.white),
                           )
                         : Text(
-                             calcul.join(),
+                            calcul.join(),
                             style: TextStyle(fontSize: 55, color: Colors.white),
                           ),
-                ),
-
-                  ],
-
+                  ),
+                ],
               ),
             ),
-           
             SizedBox(
               height: 25,
             ),
@@ -199,7 +196,7 @@ class _CalculatorsState extends State<Calculators> {
                     onPressed: (() {
                       qoshishFunc("2");
                     }),
-                    child:const Text(
+                    child: const Text(
                       "2",
                       style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
@@ -241,7 +238,7 @@ class _CalculatorsState extends State<Calculators> {
                     onPressed: (() {
                       qoshishFunc("-");
                     }),
-                    child:const Text(
+                    child: const Text(
                       "-",
                       style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
@@ -420,7 +417,6 @@ class _CalculatorsState extends State<Calculators> {
                     ),
                   ),
                 ),
-                
               ],
             ),
             SizedBox(height: 10),
@@ -524,20 +520,16 @@ class _CalculatorsState extends State<Calculators> {
   qoshishFunc(String belgi) {
     var last = calcul.isNotEmpty ? calcul.last : "";
     isEqualed ? isEqualed = false : null;
-    if (belgi == "+" || belgi == "*" || belgi == "/") {
-      if (last != "+" && last != "*" && last != "/" ) {
-        if (calcul.isNotEmpty||belgi=="-"){
-        calcul.add(belgi);
-          
+    if (belgi == "+" || belgi == "*" || belgi == "/"||belgi=="%"||belgi==".") {
+      if (last != "+" && last != "*" && last != "/") {
+        if (calcul.isNotEmpty || belgi == "-") {
+          calcul.add(belgi);
         }
-        ////fgfgf
-       
       } else {
         calcul.removeLast();
         calcul.add(belgi);
       }
     } else {
-      
       calcul.add(belgi);
       isEqualed ? isEqualed = false : null;
     }
