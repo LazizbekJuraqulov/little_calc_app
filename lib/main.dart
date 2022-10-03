@@ -19,6 +19,8 @@ class Calculators extends StatefulWidget {
 class _CalculatorsState extends State<Calculators> {
   List<String> calcul = [];
   bool isEqualed = false;
+  bool isMinus=true;
+  double foiz=0;
   double javob = 0;
   @override
   Widget build(BuildContext context) {
@@ -43,6 +45,7 @@ class _CalculatorsState extends State<Calculators> {
               child: Row(
                 ///fsdfsdfs
                 mainAxisAlignment: MainAxisAlignment.end,
+
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -409,7 +412,8 @@ class _CalculatorsState extends State<Calculators> {
                       primary: Colors.orange,
                     ),
                     onPressed: (() {
-                      qoshishFunc("%");
+                      foizniKorsat(calcul);
+                      
                     }),
                     child: Text(
                       "%",
@@ -520,11 +524,12 @@ class _CalculatorsState extends State<Calculators> {
   qoshishFunc(String belgi) {
     var last = calcul.isNotEmpty ? calcul.last : "";
     isEqualed ? isEqualed = false : null;
-    if (belgi == "+" || belgi == "*" || belgi == "/"||belgi=="%"||belgi==".") {
-      if (last != "+" && last != "*" && last != "/") {
-        if (calcul.isNotEmpty || belgi == "-") {
+    if (belgi == "+" || belgi == "*" || belgi == "/"||belgi=="."||belgi=="%"||belgi=="-") {
+      if (last != "+" && last != "*" && last != "/"&&last!="-") {
+        if (calcul.isNotEmpty || belgi == "-"){
           calcul.add(belgi);
         }
+        //ksksksk
       } else {
         calcul.removeLast();
         calcul.add(belgi);
@@ -550,4 +555,31 @@ class _CalculatorsState extends State<Calculators> {
     calcul.clear();
     setState(() {});
   }
-}
+
+foizniKorsat(List<String> sonlar) {
+  
+    isEqualed = true;
+    var last =isEqualed? "":sonlar.last;
+    if (last == "-" || last == "+" || last == "*" || last == "/" || last == "%" || last == ".") {
+      sonlar.removeLast();
+    }
+
+    String son = sonlar.join();
+
+    Parser p = Parser();
+
+    Expression exp = p.parse(son);
+
+    javob = exp.evaluate(EvaluationType.REAL, ContextModel())/100;
+
+    debugPrint(javob.toString());
+
+    calcul.clear();
+    calcul.add(javob.toString());
+    setState(() {});
+
+    
+  }
+  
+  }
+
